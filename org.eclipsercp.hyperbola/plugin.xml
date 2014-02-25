@@ -27,5 +27,15 @@
             id="org.eclipsercp.hyperbola.views.contacts"
             name="Contacts"/>
    </extension>
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            class="org.eclipsercp.hyperbola.ChatEditor"
+            default="false"
+            icon="icons/chat.gif"
+            id="org.eclipsercp.hyperbola.editors.chat"
+            name="Chat">
+      </editor>
+   </extension>
 
 </plugin>

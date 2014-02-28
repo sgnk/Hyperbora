@@ -46,7 +46,7 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
         configurer.setShowMenuBar(true);
         configurer.setShowCoolBar(true);
         configurer.setShowStatusLine(true);
-        configurer.setTitle("Hyperbola");
+        //configurer.setTitle("Hyperbola");
     }
 
 	@Override

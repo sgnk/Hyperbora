@@ -62,10 +62,12 @@ public class Main {
 	}
 
 	private static void hookIncomingChatListener(final XMPPConnection connection) {
+		System.out.println("hookIncomingChatListener");
 		if (connection != null) {
 			PacketListener listener = new PacketListener() {
 				public void processPacket(Packet packet) {
 					final Message message = (Message) packet;
+					System.out.println("getType:" + message.getType());
 					if (message.getType() != Message.Type.CHAT)
 						return;
 					echo(connection, message);
@@ -77,6 +79,7 @@ public class Main {
 	}
 
 	private static void echo(XMPPConnection connection, Message in) {
+		System.out.println("ECHO : " + in.toString());
 		Message out = new Message(in.getFrom(), Message.Type.CHAT);
 		out.setBody(in.getBody().toUpperCase());
 		out.setThread(in.getThread());

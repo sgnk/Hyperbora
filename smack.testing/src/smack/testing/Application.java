@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2005 Jean-Michel Lemieux, Jeff McAffer and others.
+a * Copyright (c) 2005 Jean-Michel Lemieux, Jeff McAffer and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -29,12 +29,12 @@ import org.jivesoftware.smack.packet.Message;
 public class Application implements IApplication, MessageListener {
 
 	public Object start(IApplicationContext context) throws Exception {
-		XMPPConnection con = new XMPPConnection("eclipsercp.org");
+		XMPPConnection con = new XMPPConnection("localhost");
 		try {
 	      con.connect();
 	      con.login("reader", "secret",
 	          Long.toString(System.currentTimeMillis()));
-	      Chat chat = con.getChatManager().createChat("eliza@eclipsercp.org", this);
+	      Chat chat = con.getChatManager().createChat("eliza@teorema.local", this);
 	      chat.sendMessage("Hi There!");
 	      Thread.sleep(5000);
 	    } catch (XMPPException e) {

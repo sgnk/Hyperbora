@@ -9,7 +9,7 @@ import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.actions.ActionFactory.IWorkbenchAction;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
-import org.eclipsercp.hyperbola.model.ContactsGroup;
+import org.eclipsercp.hyperbola.model.RosterGroup;
 import org.eclipsercp.hyperbola.model.*;
 
 public class AddContactAction extends Action implements
@@ -34,7 +34,7 @@ public class AddContactAction extends Action implements
 		if (incoming instanceof IStructuredSelection) {
 			selection = (IStructuredSelection) incoming;
 			setEnabled(selection.size() == 1
-					&& selection.getFirstElement() instanceof ContactsGroup);
+					&& selection.getFirstElement() instanceof RosterGroup);
 		} else {
 			// Other selections, for example containing text or of other kinds.
 			setEnabled(false);
@@ -51,8 +51,8 @@ public class AddContactAction extends Action implements
 		int code = d.open();
 		if (code == Window.OK) {
 			Object item = selection.getFirstElement();
-			ContactsGroup group = (ContactsGroup) item;
-			ContactsEntry entry = new ContactsEntry(group, d.getUserId(), d.getNickname(), d.getServer());
+			RosterGroup group = (RosterGroup) item;
+			RosterEntry entry = new RosterEntry(group, d.getUserId(), d.getNickname(), d.getServer());
 			group.addEntry(entry);
 		}
 	}

@@ -8,10 +8,10 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.model.BaseWorkbenchContentProvider;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
 import org.eclipse.ui.part.ViewPart;
-import org.eclipsercp.hyperbola.model.Contact;
-import org.eclipsercp.hyperbola.model.ContactsEntry;
-import org.eclipsercp.hyperbola.model.ContactsGroup;
-import org.eclipsercp.hyperbola.model.IContactsListener;
+import org.eclipsercp.hyperbola.model.Roster;
+import org.eclipsercp.hyperbola.model.RosterEntry;
+import org.eclipsercp.hyperbola.model.RosterGroup;
+import org.eclipsercp.hyperbola.model.RosterListener;
 import org.eclipsercp.hyperbola.model.Session;
 
 public class ContactsView extends ViewPart {
@@ -32,13 +32,13 @@ public class ContactsView extends ViewPart {
 		initializeSession(); // temporary tweak to build a fake model
 		treeViewer = new TreeViewer(parent, SWT.BORDER | SWT.MULTI | SWT.V_SCROLL);
 		getSite().setSelectionProvider(treeViewer);
-		Platform.getAdapterManager().registerAdapters(adapterFactory, Contact.class); // ch 5.4.2
+		Platform.getAdapterManager().registerAdapters(adapterFactory, Roster.class); // ch 5.4.2
 		treeViewer.setLabelProvider(new WorkbenchLabelProvider());
 		treeViewer.setContentProvider(new BaseWorkbenchContentProvider());
 		treeViewer.setInput(session.getRoot());
-		session.getRoot().addContactsListener(new IContactsListener() {
-			public void contactsChanged(ContactsGroup contacts,
-					ContactsEntry entry) {
+		session.getRoot().addContactsListener(new RosterListener() {
+			public void contactsChanged(RosterGroup contacts,
+					RosterEntry entry) {
 				treeViewer.refresh();
 			}
 		});
@@ -51,14 +51,14 @@ public class ContactsView extends ViewPart {
 
 	private void initializeSession() {
 		session = new Session();
-		ContactsGroup root = session.getRoot();
-		ContactsGroup friendsGroup = new ContactsGroup(root, "Friends");
+		RosterGroup root = session.getRoot();
+		RosterGroup friendsGroup = new RosterGroup(root, "Friends");
 		root.addEntry(friendsGroup);
-		friendsGroup.addEntry(new ContactsEntry(friendsGroup, "Alize", "aliz", "localhost"));
-		friendsGroup.addEntry(new ContactsEntry(friendsGroup, "Sydney", "syd", "localhost"));
-		ContactsGroup otherGroup = new ContactsGroup(root, "Other");
+		friendsGroup.addEntry(new RosterEntry(friendsGroup, "Alize", "aliz", "localhost"));
+		friendsGroup.addEntry(new RosterEntry(friendsGroup, "Sydney", "syd", "localhost"));
+		RosterGroup otherGroup = new RosterGroup(root, "Other");
 		root.addEntry(otherGroup);
-		otherGroup.addEntry(new ContactsEntry(otherGroup, "Nadine", "nad", "localhost"));
+		otherGroup.addEntry(new RosterEntry(otherGroup, "Nadine", "nad", "localhost"));
 	}
 
 	public void setFocus() {

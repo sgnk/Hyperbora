@@ -4,9 +4,9 @@ import org.eclipse.core.runtime.IAdapterFactory;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.model.IWorkbenchAdapter;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
-import org.eclipsercp.hyperbola.model.Contact;
-import org.eclipsercp.hyperbola.model.ContactsEntry;
-import org.eclipsercp.hyperbola.model.ContactsGroup;
+import org.eclipsercp.hyperbola.model.Roster;
+import org.eclipsercp.hyperbola.model.RosterEntry;
+import org.eclipsercp.hyperbola.model.RosterGroup;
 import org.eclipsercp.hyperbola.model.Presence;
 
 public class HyperbolaAdapterFactory implements IAdapterFactory {
@@ -17,20 +17,20 @@ public class HyperbolaAdapterFactory implements IAdapterFactory {
 		 * @see org.eclipse.ui.model.IWorkbenchAdapter#getParent(java.lang.Object)
 		 */
 		public Object getParent(Object o) {
-			return ((ContactsGroup) o).getParent();
+			return ((RosterGroup) o).getParent();
 		}
 
 		/* (non-Javadoc)
 		 * @see org.eclipse.ui.model.IWorkbenchAdapter#getLabel(java.lang.Object)
 		 */
 		public String getLabel(Object o) {
-			ContactsGroup group = ((ContactsGroup) o);
+			RosterGroup group = ((RosterGroup) o);
 			int available = 0;
-			Contact[] entries = group.getEntries();
+			Roster[] entries = group.getEntries();
 			for (int i = 0; i < entries.length; i++) {
-				Contact contact = entries[i];
-				if (contact instanceof ContactsEntry) {
-					if (((ContactsEntry) contact).getPresence() != Presence.INVISIBLE)
+				Roster contact = entries[i];
+				if (contact instanceof RosterEntry) {
+					if (((RosterEntry) contact).getPresence() != Presence.INVISIBLE)
 						available++;
 				}
 			}
@@ -48,7 +48,7 @@ public class HyperbolaAdapterFactory implements IAdapterFactory {
 		 * @see org.eclipse.ui.model.IWorkbenchAdapter#getChildren(java.lang.Object)
 		 */
 		public Object[] getChildren(Object o) {
-			return ((ContactsGroup) o).getEntries();
+			return ((RosterGroup) o).getEntries();
 		}
 	};
 
@@ -58,14 +58,14 @@ public class HyperbolaAdapterFactory implements IAdapterFactory {
 		 * @see org.eclipse.ui.model.IWorkbenchAdapter#getParent(java.lang.Object)
 		 */
 		public Object getParent(Object o) {
-			return ((ContactsEntry) o).getParent();
+			return ((RosterEntry) o).getParent();
 		}
 
 		/* (non-Javadoc)
 		 * @see org.eclipse.ui.model.IWorkbenchAdapter#getLabel(java.lang.Object)
 		 */
 		public String getLabel(Object o) {
-			ContactsEntry entry = ((ContactsEntry) o);
+			RosterEntry entry = ((RosterEntry) o);
 			return entry.getNickname() + " (" + entry.getName() + "@" + entry.getServer() + ")";
 		}
 
@@ -73,7 +73,7 @@ public class HyperbolaAdapterFactory implements IAdapterFactory {
 		 * @see org.eclipse.ui.model.IWorkbenchAdapter#getImageDescriptor(java.lang.Object)
 		 */
 		public ImageDescriptor getImageDescriptor(Object object) {
-			ContactsEntry entry = ((ContactsEntry) object);
+			RosterEntry entry = ((RosterEntry) object);
 			String key = presenceToKey(entry.getPresence());
 			return AbstractUIPlugin.imageDescriptorFromPlugin(Application.PLUGIN_ID, key);
 		}
@@ -102,9 +102,9 @@ public class HyperbolaAdapterFactory implements IAdapterFactory {
 	 * @see org.eclipse.core.runtime.IAdapterFactory#getAdapter(java.lang.Object, java.lang.Class)
 	 */
 	public Object getAdapter(Object adaptableObject, Class adapterType) {
-		if (adapterType == IWorkbenchAdapter.class && adaptableObject instanceof ContactsGroup)
+		if (adapterType == IWorkbenchAdapter.class && adaptableObject instanceof RosterGroup)
 			return groupAdapter;
-		if (adapterType == IWorkbenchAdapter.class && adaptableObject instanceof ContactsEntry)
+		if (adapterType == IWorkbenchAdapter.class && adaptableObject instanceof RosterEntry)
 			return entryAdapter;
 		return null;
 	}

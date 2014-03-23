@@ -17,7 +17,7 @@
 package org.eclipsercp.hyperbola.model;
 
 public class Session {
-	private ContactsGroup rootGroup;
+	private RosterGroup rootGroup;
 
 	private String name;
 
@@ -31,9 +31,9 @@ public class Session {
 		this.server = server;
 	}
 
-	public ContactsGroup getRoot() {
+	public RosterGroup getRoot() {
 		if (rootGroup == null)
-			rootGroup = new ContactsGroup(null, "RootGroup");
+			rootGroup = new RosterGroup(null, "RootGroup");
 		return rootGroup;
 	}
 

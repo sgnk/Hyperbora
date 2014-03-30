@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Smack
-Bundle-SymbolicName: org.jivesoftware.smack
+Bundle-SymbolicName: org.jivesoftware.smack;singleton:=true
 Bundle-Version: 3.1.0
 Bundle-ClassPath: .
 Bundle-Vendor: Jive Software

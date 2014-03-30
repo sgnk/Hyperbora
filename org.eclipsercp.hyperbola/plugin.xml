@@ -61,5 +61,22 @@
          </property>
       </product>
    </extension>
+   <extension
+         point="org.eclipse.core.runtime.adapters">
+      <factory
+            adaptableType="org.jivesoftware.smack.RosterEntry"
+            class="org.eclipsercp.hyperbola.AdapterFactory">
+         <adapter
+               type="org.eclipse.ui.model.IWorkbenchAdapter">
+         </adapter>
+      </factory>
+      <factory
+            adaptableType="org.jivesoftware.smack.RosterGroup"
+            class="org.eclipsercp.hyperbola.AdapterFactory">
+         <adapter
+               type="org.eclipse.ui.model.IWorkbenchAdapter">
+         </adapter>
+      </factory>
+   </extension>
 
 </plugin>

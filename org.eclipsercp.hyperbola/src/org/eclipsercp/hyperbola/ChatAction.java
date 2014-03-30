@@ -21,6 +21,7 @@ public class ChatAction extends Action implements ISelectionListener, IWorkbench
 	public ChatAction(IWorkbenchWindow window) {
 		this.window = window;
 		setId(ID);
+		setActionDefinitionId(ID);
 		setText("&Chat");
 		setToolTipText("Chat with the selected contact.");
 		setImageDescriptor(AbstractUIPlugin.imageDescriptorFromPlugin(Application.PLUGIN_ID, IImageKeys.CHAT));

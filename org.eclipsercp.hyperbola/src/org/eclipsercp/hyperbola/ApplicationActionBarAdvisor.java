@@ -54,9 +54,9 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 		toolbar.add(chatAction);
 	}
 
-	public void fillTrayItem(MenuManager trayMenu) {
-		trayMenu.add(aboutAction);
-		trayMenu.add(exitAction);
+	protected void fillTrayItem(IMenuManager trayItem) {
+		trayItem.add(aboutAction);
+		trayItem.add(exitAction);
 	}
     
 }

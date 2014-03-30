@@ -24,10 +24,16 @@ public class AddContactAction extends Action implements
 	public AddContactAction(IWorkbenchWindow window) {
 		this.window = window;
 		setId(ID);
+		setActionDefinitionId(ID);
 		setText("&Add Contact...");
 		setToolTipText("Add a contact to your contacts list.");
 		setImageDescriptor(AbstractUIPlugin.imageDescriptorFromPlugin(Application.PLUGIN_ID, IImageKeys.ADD_CONTACT));
 		window.getSelectionService().addSelectionListener(this);
+	}
+
+	@Override
+	public void dispose() {
+		window.getSelectionService().removeSelectionListener(this);
 	}
 
 	@Override
@@ -42,27 +48,19 @@ public class AddContactAction extends Action implements
 			setEnabled(false);
 		}
 	}
-
-	@Override
-	public void dispose() {
-		window.getSelectionService().removeSelectionListener(this);
-	}
 	
 	public void run() {
-		Object item = selection.getFirstElement();
-		if (item instanceof RosterGroup) {
-			RosterGroup group = (RosterGroup) item;
-			AddContactDialog d = new AddContactDialog(window.getShell());
-			int code = d.open();
-			if (code == Window.OK) {
-				try {
-				Roster list = Session.getInstance().getConnection().getRoster();
-				String user = d.getUserId() + "@" + d.getServer();
-				String[] groups = new String[] { group.getName() };
+		AddContactDialog d = new AddContactDialog(window.getShell());
+		int code = d.open();
+		RosterGroup group = (RosterGroup) selection.getFirstElement();
+		if (code == Window.OK) {
+			Roster list = Session.getInstance().getConnection().getRoster();
+			String user = d.getUserId() + "@" + d.getServer();
+			String[] groups = new String[] { group.getName() };
+			try {
 				list.createEntry(user, d.getNickname(), groups);
-				} catch (XMPPException e) {
-					// Handle
-				}
+			} catch (XMPPException e) {
+				// Handle
 			}
 		}
 	}

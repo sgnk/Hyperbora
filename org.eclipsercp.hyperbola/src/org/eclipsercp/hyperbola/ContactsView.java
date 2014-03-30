@@ -9,6 +9,7 @@ import org.eclipse.ui.part.ViewPart;
 import org.eclipsercp.hyperbola.model.Session;
 import org.jivesoftware.smack.Roster;
 import org.jivesoftware.smack.RosterListener;
+import org.jivesoftware.smack.packet.Presence;
 
 public class ContactsView extends ViewPart {
 
@@ -21,8 +22,7 @@ public class ContactsView extends ViewPart {
 	}
 
 	public void createPartControl(Composite parent) {
-		treeViewer = new TreeViewer(parent, SWT.BORDER | SWT.MULTI
-				| SWT.V_SCROLL);
+		treeViewer = new TreeViewer(parent, SWT.BORDER | SWT.MULTI | SWT.V_SCROLL);
 		getSite().setSelectionProvider(treeViewer);
 		treeViewer.setLabelProvider(new HyperbolaLabelProvider());
 		treeViewer.setContentProvider(new HyperbolaContentProvider());
@@ -43,7 +43,7 @@ public class ContactsView extends ViewPart {
 				refresh();
 			}
 			@Override
-			public void presenceChanged(org.jivesoftware.smack.packet.Presence arg0) {
+			public void presenceChanged(Presence arg0) {
 				refresh();
 			}
 		});

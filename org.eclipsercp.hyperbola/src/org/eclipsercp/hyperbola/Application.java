@@ -15,7 +15,7 @@ import org.jivesoftware.smack.XMPPException;
  */
 public class Application implements IApplication {
 
-	public static final String PLUGIN_ID = "org.eclipsercp.hyperbola";
+	public static final String PLUGIN_ID = "org.eclipsercp.hyperbola.product";
 
 	/* (non-Javadoc)
 	 * @see org.eclipse.equinox.app.IApplication#start(org.eclipse.equinox.app.IApplicationContext)

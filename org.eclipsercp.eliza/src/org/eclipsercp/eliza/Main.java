@@ -26,6 +26,7 @@ import org.jivesoftware.smack.filter.PacketFilter;
 import org.jivesoftware.smack.filter.PacketTypeFilter;
 import org.jivesoftware.smack.packet.Message;
 import org.jivesoftware.smack.packet.Packet;
+import org.jivesoftware.smack.packet.Presence;
 
 /**
  * Simple xmpp chat echo bot. Accepts chat requests and returns the
@@ -52,6 +53,11 @@ public class Main {
 					elizaConnection = new XMPPConnection(HOSTNAME);
 					elizaConnection.login("eliza", "secret");
 					logger.info("Eliza started");
+					Presence presence = new Presence(Presence.Type.AVAILABLE);
+					presence.setMode(Presence.Mode.AVAILABLE);
+					presence.setStatus("I am a BOT");
+                    presence.setPriority(24);                   
+                    elizaConnection.sendPacket(presence);
 					hookIncomingChatListener(elizaConnection);
 				}
 				Thread.sleep(10000);
